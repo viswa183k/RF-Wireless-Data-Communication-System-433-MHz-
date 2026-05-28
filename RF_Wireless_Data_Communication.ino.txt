@@ -1,0 +1,26 @@
+// RF Wireless Data Communication System
+// Uses 433 MHz RF modules with VirtualWire library
+
+#include <VirtualWire.h>
+
+const int txPin = 12;
+
+void setup() {
+
+  vw_set_tx_pin(txPin);
+  vw_setup(2000); // 2 kbps
+
+  Serial.begin(9600);
+}
+
+void loop() {
+
+  const char *message = "HELLO_RF";
+
+  vw_send((uint8_t *)message, strlen(message));
+  vw_wait_tx();
+
+  Serial.println("Data Sent: HELLO_RF");
+
+  delay(1000);
+}
